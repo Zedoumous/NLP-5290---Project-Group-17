@@ -32,3 +32,7 @@ Language Models:
   1. Word2Vec:            https://radimrehurek.com/gensim/models/word2vec.html
   2. N-gram Modeling:     class notes
   3. Clustering Methods...?
+
+Increment 1 Document:
+----------------
+https://docs.google.com/document/d/1mzBBA9H2nnNDfgv_BI5EZ0vzps8_Rt9B1zSlB1FcOWE/edit?usp=sharing
