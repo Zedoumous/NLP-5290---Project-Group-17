@@ -1,9 +1,10 @@
-Downloaded dataset from: https://www.kaggle.com/datasets/atharvap329/glassdoor-data-science-job-data
+Downloaded Job Postings Dataset from Kaggle at: 
+https://www.kaggle.com/datasets/atharvap329/glassdoor-data-science-job-data
 
 Includes 4 different CSV files, combined around 10MB, of Data Science Job Postings 
 from different regions.
 
-There are 12 columns in the data they are as follows:
+There are 12 columns in the data, they are as follows:
     Job_title  : The title of job which you are applying to
     Company    : Company name
     State/City : State/City in which the companies job posting is listed.
@@ -15,3 +16,14 @@ There are 12 columns in the data they are as follows:
     Valid_until: The last date of applying to the job.
     Job_Type   : Type of job full-time , part-time,etc.
     Rating     : Rating of the company
+
+-------------------------------------------------------------------------------------
+
+Downloaded Resume Dataset from Kaggle at:
+https://www.kaggle.com/datasets/gauravduttakiit/resume-dataset
+
+Includes a single CSV file, 3MB, of categorized resumes.
+
+There is 2 columns in the data, they are as follows:
+	Category: Type of resume (Data Science, HR, Software Eng.)
+	Resume  : Raw text
