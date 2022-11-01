@@ -1,16 +1,14 @@
 # Imports
-import pandas as pd     # load csv into DataFrame
+import pandas as pd     # pip install pandas. usage: loading data from csv files into dataframes
 
-###
-### Hoping to get a better sense of the work flow and 
-### and road map of the project by writing some helper functions. 
-###
+# From custom python file: keyBERTExtractor.py
+from keyBERTExtractor import extractKeywordsBERT
 
 ### Helper Functions
 
 # Function to retrieve text data.
 # (either 1 or more job postings or resumes)?
-def getCorpus(filename, dir):
+def getFileData(filename, dir):
     return pd.read_csv('../data/' + dir + '/' + filename)
 
 # Function to normalize text data. 
@@ -19,29 +17,85 @@ def getCorpus(filename, dir):
 def normalizeCorpus(corpus):
     pass
 
+    # for now
+    return corpus
+
 # Function to extract skill words from a given corpus.
 # ideally, this function will output a set of skills extracted from the corpus
 def extractSkills(corpus):
-    pass
+
+    # run KeyBert Extraction
+    keywords, scores = extractKeywordsBERT(corpus)
+
+    # extraction method 2
+    # extraction method n...
+    # keep going!
 
 ### Driver Code
 if __name__ == '__main__':
 
-    jpCorpus = getCorpus('Data_Job_TX.csv', 'job-postings')['Job_Desc']
-    rCorpus  = getCorpus('kaggleResumes.csv', 'resumes')['Resume']
+    # fetch the data
+    job_posting_dataframe = getFileData('Data_Job_TX.csv'  , 'job-postings')
+    resume_dataframe      = getFileData('kaggleResumes.csv', 'resumes'     )
+    #---------------
 
-    # display all 'Job_Desc' from all postings in 'job-postings/Data_Job_TX.csv'
+    # print the dataframes
     print('DataFrame of Job Postings:')
-    print(jpCorpus)
-
+    print(job_posting_dataframe)    
     print()
 
-    # display all 'Resumes' from all resumes in 'resumes/kaggleResumes.csv'
     print('DataFrame of Resumes:')
-    print(rCorpus)
+    print(resume_dataframe)
+    print()
+    #----------------------
 
-    # extract skills here?
-    normalizeCorpus(jpCorpus)
-    extractSkills(jpCorpus)
+    # fetch the job descriptions and resumes by themselves
+    jpCorpus = list(job_posting_dataframe['Job_Desc'])
+    rCorpus  = list(resume_dataframe['Resume'])
+    #----------------------
 
-    # keep going!
+    # Number of both job posting and resume samples to view
+    NUM_SAMPLES = 5
+
+    # for each JOB POSTING from the corpus
+    i = 0
+    for posting in jpCorpus:
+        print('Job Posting #', i+1)
+        print()
+
+        text = normalizeCorpus(posting)
+        extractSkills(text)
+
+        # print lines, we are done with this posting
+        print('------------------------\n')
+
+        # break, after X postings
+        i += 1
+        if i > NUM_SAMPLES:
+            break
+    #---------------------- 
+
+    # for each RESUME from the corpus
+    i = 0
+    for resume in rCorpus:
+        print('Resume #', i+1)
+        print()
+
+        text = normalizeCorpus(resume)
+        extractSkills(text)
+
+        # print lines, we are done with this resume
+        print('------------------------\n')
+
+        # break, after X resumes
+        i += 1
+        if i > NUM_SAMPLES:
+            break
+    #---------------------- 
+
+    
+# keep going!
+
+# end of driver code
+#---------------
+
