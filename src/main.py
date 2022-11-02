@@ -3,6 +3,7 @@ import pandas as pd     # pip install pandas. usage: loading data from csv files
 
 # From custom python file: keyBERTExtractor.py
 from keyBERTExtractor import extractKeywordsBERT
+# from CSOClassifierExtractor import extractKeywordsCSO
 
 ### Helper Functions
 
@@ -25,8 +26,10 @@ def normalizeCorpus(corpus):
 def extractSkills(corpus):
 
     # run KeyBert Extraction
-    keywords, scores = extractKeywordsBERT(corpus)
+    keywordsBERT, scoresBERT = extractKeywordsBERT(corpus)
 
+    # run CSO Classifier Extraction
+    # keywordsCSO, scoresCSO   = extractKeywordsCSO(corpus)
     # extraction method 2
     # extraction method n...
     # keep going!
