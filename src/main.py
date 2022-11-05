@@ -4,6 +4,7 @@ import pandas as pd     # pip install pandas. usage: loading data from csv files
 # From custom python file: keyBERTExtractor.py
 from keyBERTExtractor import extractKeywordsBERT
 # from CSOClassifierExtractor import extractKeywordsCSO
+from YAKEextractor import YAKEextractor
 
 ### Helper Functions
 
@@ -31,6 +32,7 @@ def extractSkills(corpus):
     # run CSO Classifier Extraction
     # keywordsCSO, scoresCSO   = extractKeywordsCSO(corpus)
     # extraction method 2
+    keywords, scores = YAKEextractor(corpus)
     # extraction method n...
     # keep going!
 
