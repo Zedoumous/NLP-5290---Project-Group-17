@@ -37,7 +37,7 @@ def normalizeCorpus(corpus):
     for word in normalized_corpus:
         if word in punctuation:
             normalized_corpus.remove(word)
-
+    #still need to add dates and links
     return normalized_corpus
 
 # Function to extract skill words from a given corpus.
