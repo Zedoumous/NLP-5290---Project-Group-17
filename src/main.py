@@ -1,5 +1,9 @@
 # Imports
 import pandas as pd     # pip install pandas. usage: loading data from csv files into dataframes
+import nltk
+from nltk.tokenize import word_tokenize  
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
 
 # From custom python file: keyBERTExtractor.py
 from keyBERTExtractor import extractKeywordsBERT
@@ -17,10 +21,24 @@ def getFileData(filename, dir):
 # (some skill extraction tools will normalize text for us; however, if not, this function is here)
 # includes removing stopwords, punctuation, dates, links, etc...
 def normalizeCorpus(corpus):
-    pass
+    nltk_tokenList = word_tokenize(corpus)
+    lemmatizer = WordNetLemmatizer()
+    nltk_lemmaList = []
+    for word in nltk_tokenList:
+        nltk_lemmaList.append(lemmatizer.lemmatize(word))
 
-    # for now
-    return corpus
+    normalized_corpus = []  
+    nltk_stop_words = set(stopwords.words("english"))
+    for w in nltk_lemmaList:  
+        if w not in nltk_stop_words:  
+            normalized_corpus.append(w)
+
+    punctuation = ";:.,?!"
+    for word in normalized_corpus:
+        if word in punctuation:
+            normalized_corpus.remove(word)
+
+    return normalized_corpus
 
 # Function to extract skill words from a given corpus.
 # ideally, this function will output a set of skills extracted from the corpus
