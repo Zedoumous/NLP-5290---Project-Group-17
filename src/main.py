@@ -1,16 +1,25 @@
 # Imports
+
 import pandas as pd     # pip install pandas. usage: loading data from csv files into dataframes
+import spacy
+nlp = spacy.load('en_core_web_sm')
 import nltk
+import numpy as np
 from nltk.tokenize import word_tokenize  
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 nltk.download("all")
+from numpy.lib.npyio import savez_compressed
+from array import *
+
+
 
 # From custom python file: keyBERTExtractor.py
 from keyBERTExtractor import extractKeywordsBERT
 from CSOClassifierExtractor import extractKeywordsCSO
 from YAKEextractor import extractKeywordsYAKE
 from SkillMatching import SkillsMatching
+from TextRankextractor import extractKeywordsTextRank
 
 ### Helper Functions
 
@@ -57,12 +66,18 @@ def extractSkills(corpus):
     
     # extraction method 2
     keywordsYAKE, scoresYAKE = extractKeywordsYAKE(corpus)
+    
+    # extraction method 3
+    keywordsTextRank, scoresTextRank, avgTextRank = extractKeywordsTextRank(corpus)
+    
+    
     # extraction method n...
     # keep going!
-    return {"keywordsBERT": keywordsBERT,
-            "keywordsCSO": keywordsCSO,
-            "keywordsYAKE": keywordsYAKE}
-
+#     return {"keywordsBERT": keywordsBERT, -------- previous return values excluded CSO for sake of not breaking return values. leaving this here
+#             "keywordsCSO": keywordsCSO,
+#             "keywordsYAKE": keywordsYAKE}
+    return keywordsBERT, keywordsYAKE, keywordsTextRank
+   
 ### Driver Code
 if __name__ == '__main__':
 
@@ -101,6 +116,9 @@ if __name__ == '__main__':
         text = normalizeCorpus(posting)
         job_posting_json = extractSkills(text)
         all_job_postings.append(text)
+        
+        JA, JB, JC = extractSkills(text) #addition
+        
         # print lines, we are done with this posting
         print('------------------------\n')
 
@@ -120,6 +138,9 @@ if __name__ == '__main__':
         text = normalizeCorpus(resume)
         resume_json = extractSkills(text)
         all_resumes_keywords.append(resume_json)
+        
+        RA, RB, RC = extractSkills(text) #addition
+        
         # print lines, we are done with this resume
         print('------------------------\n')
 
@@ -137,6 +158,25 @@ if __name__ == '__main__':
         print('------------------------\n')
         print("Matching Job Posting for Resume %s" % i)
         print(jp)
+    #----------------------  resume and job posing similiarity scores
+    keyBERTSimiliarity = np.zeros(14)
+    for k in range (0,14):
+      keyBERTSimiliarity[k] = similiartychecker(JA[k], RA[k])
+
+    print('KeyBERT match Similarity Mean: '+str(np.mean(keyBERTSimiliarity)))
+
+    YakeSimilarity = np.zeros(len(min(JB, RB)))
+    for i in range (0,20):
+      YakeSimilarity[i] = similiartychecker(JB[i],RB[i])
+
+    print('Yake match Similiarity Mean: '+str(np.mean(YakeSimilarity)))
+
+    TextRankSimiliarity = np.zeros(20)
+    for j in range (0,20):
+      TextRankSimiliarity[j] = similiartychecker(JC[j], RC[j])
+
+    print('TextRank match Similarity Mean: '+str(np.mean(TextRankSimiliarity)))
+    
 
     
 # keep going!
