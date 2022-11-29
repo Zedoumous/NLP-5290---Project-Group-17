@@ -1,5 +1,6 @@
 # Imports
 from keybert import KeyBERT # pip install keybert (give it a minute...)
+from statistics import mean
 
 '''
 /*---------------------------------------------------------------------
@@ -51,4 +52,9 @@ def extractKeywordsBERT(normalized_corpus):
         print(value.ljust(40), scores[i])
     print()
 
-    return keywords, scores
+    # print("type: "+str(type(scores))+"length: "+ str(len(scores)))
+
+    avg = mean(scores[:14])
+    print("Score Average: " + str(avg))
+
+    return keywords, scores, avg
