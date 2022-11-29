@@ -1,6 +1,6 @@
 import yake
 
-def YAKEextractor(normalized_corpus):
+def extractKeywordsYAKE(normalized_corpus):
     print('---YAKE Extraction---')
     print('------------------------\n')
 

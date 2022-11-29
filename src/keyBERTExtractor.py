@@ -49,5 +49,6 @@ def extractKeywordsBERT(normalized_corpus):
     print('-Skill-'.ljust(40), '-Score-')
     for i, value in enumerate(keywords):
         print(value.ljust(40), scores[i])
+    print()
 
     return keywords, scores

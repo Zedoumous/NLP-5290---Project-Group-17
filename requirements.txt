@@ -1,0 +1,11 @@
+cso_classifier==3.0
+gensim
+jellyfish==0.9.0
+keybert==0.6.0
+nltk
+numpy==1.21.2
+pandas==1.3.3
+requests
+spacy
+yake==0.4.8
+en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.0.0/en_core_web_sm-3.0.0-py3-none-any.whl
