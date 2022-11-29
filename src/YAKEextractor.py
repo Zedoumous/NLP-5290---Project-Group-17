@@ -1,5 +1,7 @@
 import yake
 
+from statistics import mean
+
 def extractKeywordsYAKE(normalized_corpus):
     print('---YAKE Extraction---')
     print('------------------------\n')
@@ -18,8 +20,12 @@ def extractKeywordsYAKE(normalized_corpus):
     keywords = zipped[0]
     scores = zipped[1]
 
-    print('-Skill-'.ljust(40), '-Score-')
+   
     for i, value in enumerate(keywords):
         print(value.ljust(40), scores[i])
-    
-    return keywords, scores
+
+    avg = mean(scores[:19])
+    print("Score Average: " + str(avg))
+
+
+    return keywords, scores, avg
